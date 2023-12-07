@@ -42,6 +42,7 @@
             cbCategoria = new ComboBox();
             btnGuardarCambios = new Button();
             btnCancelar = new Button();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvUsuario).BeginInit();
             SuspendLayout();
             // 
@@ -158,12 +159,23 @@
             btnCancelar.UseVisualStyleBackColor = true;
             btnCancelar.Click += btnCancelar_Click;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(243, 40);
+            label1.Name = "label1";
+            label1.Size = new Size(140, 21);
+            label1.TabIndex = 11;
+            label1.Text = "EDITAR USUARIO";
+            // 
             // FrmEditarUsuario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 128, 0);
             ClientSize = new Size(634, 317);
+            Controls.Add(label1);
             Controls.Add(btnCancelar);
             Controls.Add(btnGuardarCambios);
             Controls.Add(cbCategoria);
@@ -202,5 +214,6 @@
         private DataGridViewTextBoxColumn NombreUsuario;
         private DataGridViewTextBoxColumn Password;
         private DataGridViewTextBoxColumn EsAdmin;
+        private Label label1;
     }
 }

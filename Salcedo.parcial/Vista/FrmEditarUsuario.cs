@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Vista
 {
-    public partial class FrmEditarUsuario : Form
+    public partial class FrmEditarUsuario : Form, IConfiguraciones
     {
         Usuario user;
 
@@ -23,18 +23,7 @@ namespace Vista
 
         private void FrmEditarUsuario_Load(object sender, EventArgs e)
         {
-            dgvUsuario.Rows.Add(user.NombreUsuario, user.Password, user.EsAdmin);
-            cbCamposAEditar.Items.Add("Nombre de usuario");
-            cbCamposAEditar.Items.Add("Contraseña");
-            cbCamposAEditar.Items.Add("Categoria");
-            cbCategoria.Items.Add("Supervisor");
-            cbCategoria.Items.Add("Operario");
-            lblNombre.Visible = false;
-            txtNombreUsuario.Visible = false;
-            lblPass.Visible = false;
-            txtPassword.Visible = false;
-            lblCategoria.Visible = false;
-            cbCategoria.Visible = false;
+            AplicarConfiguraciones();            
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -65,12 +54,10 @@ namespace Vista
                         user.EsAdmin = false;
                         break;
                     }
-
-
-
             }
             this.DialogResult = DialogResult.OK;
             this.Close();
+            UsuarioDao.Modificar(user);
         }
 
         private void cbCamposAEditar_SelectedIndexChanged(object sender, EventArgs e)
@@ -102,5 +89,36 @@ namespace Vista
                 txtPassword.Visible = false;
             }
         }
+
+
+
+
+
+        public void AplicarConfiguraciones()
+        {
+            Configuracion config = Archivos<Configuracion>.LeerConfiguracion("configuracion");
+            FontFamily fontFamily = new FontFamily(config.Fuente);
+            Font font = new Font(fontFamily, this.Font.Size, FontStyle.Regular);
+            this.Font = font;
+            this.BackColor = config.ColorFondo;
+
+
+            dgvUsuario.Rows.Add(user.NombreUsuario, user.Password, user.EsAdmin);
+            cbCamposAEditar.Items.Add("Nombre de usuario");
+            cbCamposAEditar.Items.Add("Contraseña");
+            cbCamposAEditar.Items.Add("Categoria");
+            cbCategoria.Items.Add("Supervisor");
+            cbCategoria.Items.Add("Operario");
+            lblNombre.Visible = false;
+            txtNombreUsuario.Visible = false;
+            lblPass.Visible = false;
+            txtPassword.Visible = false;
+            lblCategoria.Visible = false;
+            cbCategoria.Visible = false;
+        }
+
+
+
+
     }
 }

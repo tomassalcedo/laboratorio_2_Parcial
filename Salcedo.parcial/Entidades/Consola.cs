@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -6,99 +7,70 @@ namespace Entidades
 {
     public abstract class Consola
     {
-        protected DateTime fechaLanzamiento;
+        protected int id;
+        protected DateTime fechaProduccion;
         protected decimal precio;
-        protected float almacenamientoInterno;
+        protected int almacenamiento;
         protected int cantidadJugadores;
-        protected string conectividadInternet;
-        protected string numeroDeSerie;
-        protected static List<string> numerosDeSerieUtilizados = new List<string>();
+        protected bool wifi;
+        protected string nombre;
 
-        public Consola(string numeroDeSerie ,decimal precio,float almacenamientoInterno,int cantidadJugadores, string conectividadInternet)
+        public Consola()
         {
-            this.numeroDeSerie = numeroDeSerie;
-            this.precio = precio;
-            this.almacenamientoInterno = almacenamientoInterno;
-            this.cantidadJugadores = cantidadJugadores;
-            this.conectividadInternet = conectividadInternet;
+                
         }
 
-        public Consola(DateTime fechaLanzamiento,string numeroDeSerie ,decimal precio, float almacenamientoInterno, int cantidadJugadores, string conectividadInternet):this(numeroDeSerie,precio,almacenamientoInterno,cantidadJugadores,conectividadInternet)
+        public Consola(int id,DateTime fechaProduccion,decimal precio,int almacenamiento, int cantidadJugadores, bool wifi, string nombre)
         {
-            this.fechaLanzamiento = fechaLanzamiento;
-  
+            this.Id = id;
+            this.fechaProduccion = fechaProduccion;
+            this.Precio = precio;
+            this.Almacenamiento = almacenamiento;
+            this.CantidadJugadores = cantidadJugadores;
+            this.Wifi = wifi;
+            this.Nombre = nombre;
         }
 
-        //public string Nombre { get { return nombre; } set { nombre = value; } }
-        public string NumeroDeSerie { get { return numeroDeSerie; } }
-        public DateTime FechaLanzamiento { get {  return fechaLanzamiento; } set {  fechaLanzamiento = value; } }
-        public decimal Precio { get { return precio; } set {  precio = value; } }
-        public float AlmacenamientoInterno { get {  return almacenamientoInterno; } set { almacenamientoInterno = value; } }
-        public int CantidadJugadores { get {  return cantidadJugadores; } set { cantidadJugadores = value; } }
-        public string ConectividadInternet { get { return conectividadInternet; } set {  conectividadInternet = value; } }
 
-        
-         /// <summary>
-         /// Metodo virtual que genera una planilla con los datos de la consola.
-         /// </summary>
-         /// <returns>retorna un StringBuilder con un formato determinado</returns>
-        public virtual string MostrarConsola()
+        public int Id { get => id; set => id = value; }
+        public DateTime FechaProduccion { get => fechaProduccion; set => fechaProduccion = value; }
+        public decimal Precio { get => precio; set => precio = value; }
+        public int Almacenamiento { get => almacenamiento; set => almacenamiento = value; }
+        public int CantidadJugadores { get => cantidadJugadores; set => cantidadJugadores = value; }
+        public bool Wifi { get => wifi; set => wifi = value; }
+        public string Nombre { get => nombre; set => nombre = value; }
+
+
+
+
+        /// <summary>
+        /// Metodo virtual que genera una planilla con los datos de la consola.
+        /// </summary>
+        /// <returns>retorna un StringBuilder con un formato determinado</returns>
+        protected string MostrarConsola()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Numero de serie: {this.numeroDeSerie}");
-            sb.AppendLine($"Fecha de lanzamiento: {FechaLanzamiento.ToString("dd/MM/yyyy")}");
+            sb.AppendLine($"ID: {id}");
+            sb.AppendLine($"Fecha de lanzamiento: {FechaProduccion.ToString("dd/MM/yyyy")}");
             sb.AppendLine($"Precio: {Precio}");
-            sb.AppendLine($"Almacenamiento: {AlmacenamientoInterno}");
+            sb.AppendLine($"Almacenamiento: {Almacenamiento}");
             sb.AppendLine($"Cantidad de jugadores: {CantidadJugadores}");
-            sb.AppendLine($"Conectividad a internet: {ConectividadInternet}");
+            sb.AppendLine($"Conectividad a internet: {wifi}");
+            sb.AppendLine($"Nombre: {Nombre}");
             return sb.ToString();
         }
 
-        /// <summary>
-        /// Metodo encargado de generar un numero de serie unico, para que no haya 2 consolas
-        /// con un mismo numero.
-        /// </summary>
-        /// <returns>Retorna un numero de serie al azar, con un formato determinado</returns>
-        public static string GenerarNumeroDeSerieUnico()
+
+        public override string ToString()
         {
-            int numero = 0;
-            string numeroDeSerie = "";
-            Random random = new Random();
-
-            do
-            {
-                numero = random.Next(1000, 1000000);
-                numeroDeSerie = $"TS-{numero}";
-
-            } while (numerosDeSerieUtilizados.Contains(numeroDeSerie));
-
-            numerosDeSerieUtilizados.Add(numeroDeSerie);
-            return numeroDeSerie;
+            return MostrarConsola();
         }
 
-        /// <summary>
-        /// Soobrecarga del operador == compara 2 consolas por numero de serie
-        /// </summary>
-        /// <param name="c1">primer consola a comparar</param>
-        /// <param name="c2">segunda consola a comparar</param>
-        /// <returns>false si son distintas, true si son iguales</returns>
-        public static bool operator ==(Consola c1, Consola c2)
-        {
-            bool retorno = false;
 
-            if (c1 != null && c2 != null)
-            {
-                if (c1.NumeroDeSerie == c2.NumeroDeSerie)
-                {
-                    retorno = true;
-                }
-            }
-            return retorno;
-        }
+    
+      
 
-        public static bool operator !=(Consola c1, Consola c2)
-        {
-            return !(c1 == c2);
-        }
+        
+
     }
 }

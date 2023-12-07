@@ -11,28 +11,23 @@ using System.Windows.Forms;
 
 namespace Vista
 {
-    public partial class FrmStock : Form
+    public partial class FrmStock : Form, IConfiguraciones
     {
         Usuario user;
+
+
         public FrmStock(Usuario user)
         {
             InitializeComponent();
             this.user = user;
         }
 
+
+
         private void FrmStock_Load(object sender, EventArgs e)
         {
-
+            AplicarConfiguraciones();
             CargarDatosEnDataGridView();
-            if (user.EsAdmin)
-            {
-                btnAgregarMateriales.Visible = true;
-            }
-            else
-            {
-                btnAgregarMateriales.Visible = false;
-            }
-
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -47,7 +42,9 @@ namespace Vista
 
             if (frmAgregarMateriales.DialogResult == DialogResult.OK)
             {
+                StockDao.ActualizarStock();
                 CargarDatosEnDataGridView();
+
             }
         }
 
@@ -58,17 +55,34 @@ namespace Vista
         /// </summary>
         private void CargarDatosEnDataGridView()
         {
-            dgvStockMateriales.Rows.Clear(); // Limpia las filas existentes para que no se repitan
-
-            // Agrega nuevamente los datos desde Datos
+            dgvStockMateriales.Rows.Clear(); // Limpio las filas existentes para que no se repitan.
+            // Agrego nuevamente los datos desde Stock con los valores ya cargados de la db
             int n = dgvStockMateriales.Rows.Add();
-            dgvStockMateriales.Rows[n].Cells[0].Value = Datos.MetrosDeCableDisponible;
-            dgvStockMateriales.Rows[n].Cells[1].Value = Datos.CantidadPlasticoDisponible;
-            dgvStockMateriales.Rows[n].Cells[2].Value = Datos.CantidadTornillosDisponibles;
-            dgvStockMateriales.Rows[n].Cells[3].Value = Datos.CantidadDePlacasDisponibles;
+            dgvStockMateriales.Rows[n].Cells[0].Value = Stock.MetrosDeCable;
+            dgvStockMateriales.Rows[n].Cells[1].Value = Stock.CantidadDePlastico;
+            dgvStockMateriales.Rows[n].Cells[2].Value = Stock.CantidadDeTornillos;
+            dgvStockMateriales.Rows[n].Cells[3].Value = Stock.CantidadDePlacas;
+        }
+
+
+        public void AplicarConfiguraciones()
+        {
+            Configuracion config = Archivos<Configuracion>.LeerConfiguracion("configuracion");
+            FontFamily fontFamily = new FontFamily(config.Fuente);
+            Font font = new Font(fontFamily, this.Font.Size, FontStyle.Regular);
+            this.Font = font;
+            this.BackColor = config.ColorFondo;
+
+            btnAgregarMateriales.Visible = false;
+            if (user.EsAdmin)
+            {
+                btnAgregarMateriales.Visible = true;
+            }
+
         }
 
 
 
     }
 }
+

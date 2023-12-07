@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Vista
 {
-    public partial class FrmAgregarMateriales : Form
+    public partial class FrmAgregarMateriales : Form, IConfiguraciones
     {
         public FrmAgregarMateriales()
         {
@@ -21,11 +21,7 @@ namespace Vista
 
         private void FrmAgregarMateriales_Load(object sender, EventArgs e)
         {
-            numCantidad.Maximum = 5000;
-            cbMateriales.Items.Add("Cable");
-            cbMateriales.Items.Add("Plastico");
-            cbMateriales.Items.Add("Tornillos");
-            cbMateriales.Items.Add("Placas");
+            AplicarConfiguraciones();
         }
 
 
@@ -37,30 +33,64 @@ namespace Vista
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            int cantidad = (int)numCantidad.Value;
-            string material = cbMateriales.SelectedItem.ToString();
-
-            switch (material)
+            string material = string.Empty;
+            int cantidad = Convert.ToInt32(numCantidad.Value);
+            if (cbMateriales.SelectedItem != null && cantidad > 0)
             {
-                case "Cable":
-                    Datos.AgregarCable(cantidad);
-                    break;
+                material = cbMateriales.SelectedItem.ToString();
 
-                case "Plastico":
-                    Datos.AgregarPlastico(cantidad);
-                    break;
 
-                case "Tornillos":
-                    Datos.AgregarTornillos(cantidad);
-                    //Datos.CantidadTornillosDisponibles -= cantidad;
-                    break;
+                switch (material)
+                {
+                    case "Cable":
+                        Stock.AgregarCable(cantidad);
+                        break;
 
-                case "Placas":
-                    Datos.AgregarPlacas(cantidad);
-                    break;
+                    case "Plastico":
+                        Stock.AgregarPlastico(cantidad);
+                        break;
+
+                    case "Tornillos":
+                        Stock.AgregarTornillos(cantidad);
+                        break;
+
+                    case "Placas":
+                        Stock.AgregarPlacas(cantidad);
+                        break;
+                }
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            else
+            {
+                MessageBox.Show("Seleccione un material/Cantidad");
+            }
         }
+
+
+
+        public void AplicarConfiguraciones()
+        {
+            Configuracion config = Archivos<Configuracion>.LeerConfiguracion("configuracion");
+            FontFamily fontFamily = new FontFamily(config.Fuente);
+            Font font = new Font(fontFamily, this.Font.Size, FontStyle.Regular);
+            this.Font = font;
+            this.BackColor = config.ColorFondo;
+
+
+            numCantidad.Maximum = 5000;
+            cbMateriales.Items.Add("Cable");
+            cbMateriales.Items.Add("Plastico");
+            cbMateriales.Items.Add("Tornillos");
+            cbMateriales.Items.Add("Placas");
+        }
+
+
+
+
+
+
+
+
     }
 }

@@ -3,32 +3,28 @@ using System.Runtime.CompilerServices;
 
 namespace Vista
 {
-    public partial class FrmMenuPrincipal : Form
+    public partial class FrmMenuPrincipal : Form, IConfiguraciones
     {
         Usuario usuarioLogueado;
-       
+
 
         public FrmMenuPrincipal()
         {
             InitializeComponent();
         }
-    
+
         public FrmMenuPrincipal(Usuario usuario) : this()
         {
             this.usuarioLogueado = usuario;
         }
 
+
         private void FrmMenuPrincipal_Load(object sender, EventArgs e)
         {
-            this.lblUsuario.Text = $"Usuario: {usuarioLogueado.NombreUsuario}";
-            this.lblFecha.Text = $"Fecha: {DateTime.Now.ToShortDateString()}";
-            btnVerUsuarios.Visible = false;
-            
-            if (usuarioLogueado.EsAdmin == true)
-            {
-                btnVerUsuarios.Visible = true;
-            }
+            AplicarConfiguraciones();
         }
+
+
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
@@ -43,7 +39,7 @@ namespace Vista
 
         private void btnProducirConsola_Click(object sender, EventArgs e)
         {
-            FrmProduccion frmProduccion = new FrmProduccion();
+            FrmProduccion frmProduccion = new FrmProduccion(usuarioLogueado);
             frmProduccion.ShowDialog();
         }
 
@@ -53,10 +49,6 @@ namespace Vista
             frmBodega.ShowDialog();
         }
 
-        private void btnPrueba_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show($"Usuario estado: {usuarioLogueado.EsAdmin}");
-        }
 
         private void FrmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -65,7 +57,7 @@ namespace Vista
 
         private void btnVerUsuarios_Click(object sender, EventArgs e)
         {
-            FrmUsuarios frmUsuarios = new FrmUsuarios();
+            FrmUsuarios frmUsuarios = new FrmUsuarios(usuarioLogueado);
             frmUsuarios.ShowDialog();
         }
 
@@ -75,8 +67,41 @@ namespace Vista
             FrmLogin frmLogin = new FrmLogin();
             frmLogin.ShowDialog();
             this.Close();
-          
+
 
         }
+
+
+        private void btnConfiguracion_Click(object sender, EventArgs e)
+        {
+            FrmConfiguracion frmConfiguracion = new FrmConfiguracion(usuarioLogueado);
+            frmConfiguracion.ShowDialog();
+            if (frmConfiguracion.DialogResult == DialogResult.OK)
+            {
+                AplicarConfiguraciones();
+            }
+
+        }
+
+
+        public void AplicarConfiguraciones()
+        {
+            Configuracion config = Archivos<Configuracion>.LeerConfiguracion("configuracion");
+            FontFamily fontFamily = new FontFamily(config.Fuente);
+            Font font = new Font(fontFamily, this.Font.Size, FontStyle.Regular);
+            this.Font = font;
+            this.BackColor = config.ColorFondo;
+
+            lblCategoria.Text = LogicaNegocio.ConsuntarCategoria(usuarioLogueado);
+            this.lblFecha.Text = $"Fecha: {DateTime.Now.ToShortDateString()}";
+            btnVerUsuarios.Visible = false;
+
+            if (usuarioLogueado.EsAdmin)
+            {
+                btnVerUsuarios.Visible = true;
+            }
+        }
+
+
     }
 }

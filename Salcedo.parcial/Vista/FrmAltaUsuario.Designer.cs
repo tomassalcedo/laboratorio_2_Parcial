@@ -37,6 +37,7 @@
             btnAgregarUsuario = new Button();
             btnCancelar = new Button();
             label4 = new Label();
+            lblUsuario = new Label();
             SuspendLayout();
             // 
             // label1
@@ -60,7 +61,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(67, 279);
+            label3.Location = new Point(67, 252);
             label3.Name = "label3";
             label3.Size = new Size(115, 15);
             label3.TabIndex = 2;
@@ -83,14 +84,14 @@
             // cbCategoria
             // 
             cbCategoria.FormattingEnabled = true;
-            cbCategoria.Location = new Point(67, 297);
+            cbCategoria.Location = new Point(67, 270);
             cbCategoria.Name = "cbCategoria";
             cbCategoria.Size = new Size(148, 23);
             cbCategoria.TabIndex = 5;
             // 
             // btnAgregarUsuario
             // 
-            btnAgregarUsuario.Location = new Point(81, 347);
+            btnAgregarUsuario.Location = new Point(81, 325);
             btnAgregarUsuario.Name = "btnAgregarUsuario";
             btnAgregarUsuario.Size = new Size(115, 32);
             btnAgregarUsuario.TabIndex = 6;
@@ -100,7 +101,7 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(81, 406);
+            btnCancelar.Location = new Point(79, 384);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(117, 32);
             btnCancelar.TabIndex = 7;
@@ -111,13 +112,22 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 22F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(39, 42);
+            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.Location = new Point(81, 46);
             label4.Name = "label4";
-            label4.Size = new Size(215, 41);
+            label4.Size = new Size(122, 21);
             label4.TabIndex = 8;
             label4.Text = "ALTA USUARIO";
             label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblUsuario
+            // 
+            lblUsuario.AutoSize = true;
+            lblUsuario.Location = new Point(37, 9);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(38, 15);
+            lblUsuario.TabIndex = 9;
+            lblUsuario.Text = "label5";
             // 
             // FrmAltaUsuario
             // 
@@ -125,6 +135,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 128, 0);
             ClientSize = new Size(290, 450);
+            Controls.Add(lblUsuario);
             Controls.Add(label4);
             Controls.Add(btnCancelar);
             Controls.Add(btnAgregarUsuario);
@@ -135,6 +146,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "FrmAltaUsuario";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Alta usuario";
             Load += FrmAltaUsuario_Load;
             ResumeLayout(false);
@@ -152,5 +164,6 @@
         private Button btnAgregarUsuario;
         private Button btnCancelar;
         private Label label4;
+        private Label lblUsuario;
     }
 }

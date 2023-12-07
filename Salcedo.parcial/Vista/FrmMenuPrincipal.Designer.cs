@@ -30,7 +30,6 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMenuPrincipal));
-            lblUsuario = new Label();
             lblFecha = new Label();
             btnStockMateriales = new Button();
             btnProducirConsola = new Button();
@@ -40,22 +39,15 @@
             btnSalir = new Button();
             btnVerBodega = new Button();
             btnCambiarUsuario = new Button();
+            lblCategoria = new Label();
+            btnConfiguracion = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
-            // 
-            // lblUsuario
-            // 
-            lblUsuario.AutoSize = true;
-            lblUsuario.Location = new Point(259, 9);
-            lblUsuario.Name = "lblUsuario";
-            lblUsuario.Size = new Size(38, 15);
-            lblUsuario.TabIndex = 0;
-            lblUsuario.Text = "label1";
             // 
             // lblFecha
             // 
             lblFecha.AutoSize = true;
-            lblFecha.Location = new Point(259, 59);
+            lblFecha.Location = new Point(259, 72);
             lblFecha.Name = "lblFecha";
             lblFecha.Size = new Size(38, 15);
             lblFecha.TabIndex = 6;
@@ -122,7 +114,7 @@
             // 
             // btnCambiarUsuario
             // 
-            btnCambiarUsuario.Location = new Point(202, 290);
+            btnCambiarUsuario.Location = new Point(214, 223);
             btnCambiarUsuario.Name = "btnCambiarUsuario";
             btnCambiarUsuario.Size = new Size(95, 40);
             btnCambiarUsuario.TabIndex = 15;
@@ -130,12 +122,33 @@
             btnCambiarUsuario.UseVisualStyleBackColor = true;
             btnCambiarUsuario.Click += btnCambiarUsuario_Click;
             // 
+            // lblCategoria
+            // 
+            lblCategoria.AutoSize = true;
+            lblCategoria.Location = new Point(259, 9);
+            lblCategoria.Name = "lblCategoria";
+            lblCategoria.Size = new Size(38, 15);
+            lblCategoria.TabIndex = 16;
+            lblCategoria.Text = "label1";
+            // 
+            // btnConfiguracion
+            // 
+            btnConfiguracion.Location = new Point(348, 333);
+            btnConfiguracion.Name = "btnConfiguracion";
+            btnConfiguracion.Size = new Size(95, 24);
+            btnConfiguracion.TabIndex = 17;
+            btnConfiguracion.Text = "Configuración";
+            btnConfiguracion.UseVisualStyleBackColor = true;
+            btnConfiguracion.Click += btnConfiguracion_Click;
+            // 
             // FrmMenuPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 128, 0);
             ClientSize = new Size(564, 369);
+            Controls.Add(btnConfiguracion);
+            Controls.Add(lblCategoria);
             Controls.Add(btnCambiarUsuario);
             Controls.Add(btnVerBodega);
             Controls.Add(btnSalir);
@@ -144,7 +157,6 @@
             Controls.Add(btnProducirConsola);
             Controls.Add(btnStockMateriales);
             Controls.Add(lblFecha);
-            Controls.Add(lblUsuario);
             Name = "FrmMenuPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Menu Principal";
@@ -156,8 +168,6 @@
         }
 
         #endregion
-
-        private Label lblUsuario;
         private Label lblFecha;
         private Button btnStockMateriales;
         private Button btnProducirConsola;
@@ -167,5 +177,7 @@
         private Button btnSalir;
         private Button btnVerBodega;
         private Button btnCambiarUsuario;
+        private Label lblCategoria;
+        private Button btnConfiguracion;
     }
 }

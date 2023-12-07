@@ -31,3 +31,4 @@ C:\Users\PC\Desktop\laboratorio_2_Parcial\Salcedo.parcial\Entidades\obj\Debug\ne
 C:\Users\PC\Desktop\laboratorio_2_Parcial\Salcedo.parcial\Entidades\obj\Debug\net6.0\refint\Entidades.dll
 C:\Users\PC\Desktop\laboratorio_2_Parcial\Salcedo.parcial\Entidades\obj\Debug\net6.0\Entidades.pdb
 C:\Users\PC\Desktop\laboratorio_2_Parcial\Salcedo.parcial\Entidades\obj\Debug\net6.0\ref\Entidades.dll
+C:\Users\PC\Desktop\laboratorio_2_Parcial\Salcedo.parcial\Entidades\obj\Debug\net6.0\Entidades.csproj.AssemblyReference.cache

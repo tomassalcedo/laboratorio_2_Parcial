@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -11,17 +12,19 @@ using System.Windows.Forms;
 
 namespace Vista
 {
-    public partial class FrmAltaUsuario : Form
+    public partial class FrmAltaUsuario : Form, IConfiguraciones
     {
-        public FrmAltaUsuario()
+        Usuario usuario;
+        public FrmAltaUsuario(Usuario usuario)
         {
             InitializeComponent();
+            this.usuario = usuario;
         }
 
         private void FrmAltaUsuario_Load(object sender, EventArgs e)
         {
-            cbCategoria.Items.Add("Operario");
-            cbCategoria.Items.Add("Supervisor");
+            AplicarConfiguraciones();
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -35,25 +38,47 @@ namespace Vista
             string nombreUsuario = txtBoxNombreUsuario.Text;
             string password = txtBoxPassword.Text;
             bool categoria = false;
-            Usuario auxUsuario;
+            Usuario auxUsuario = LogicaNegocio.BuscarUsuario(nombreUsuario, password);
 
-            if (Datos.BuscarUsuario(nombreUsuario, password) is null)
+            if (auxUsuario is null)
             {
-                if (cbCategoria.SelectedItem == "Supervisor")
+                if (cbCategoria.SelectedItem.ToString() == "Supervisor")
                 {
                     categoria = true;
                 }
 
-                auxUsuario = new Usuario(nombreUsuario, password, categoria);
-                Datos.usuariosEnSistema.Add(auxUsuario);
-                MessageBox.Show($"Usuario registrado exitosamente\n{auxUsuario.MostrarUsuario()}");
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                auxUsuario = new Usuario(0, nombreUsuario, password, categoria);
+                UsuarioDao.Guardar(auxUsuario);
+                DialogResult = DialogResult.OK;
+                Close();
             }
             else
             {
-                MessageBox.Show("El nombre de usuario/contraseña ya existe");
+                MessageBox.Show("El nombre de usuario ya se encuentra registrado");
             }
         }
+
+
+
+
+
+
+        public void AplicarConfiguraciones()
+        {
+            Configuracion config = Archivos<Configuracion>.LeerConfiguracion("configuracion");
+            FontFamily fontFamily = new FontFamily(config.Fuente);
+            Font font = new Font(fontFamily, this.Font.Size, FontStyle.Regular);
+            this.Font = font;
+            this.BackColor = config.ColorFondo;
+
+            cbCategoria.Items.Add("Operario");
+            cbCategoria.Items.Add("Supervisor");
+            lblUsuario.Text = LogicaNegocio.ConsuntarCategoria(usuario);
+        }
+
+
+
+
+
     }
 }

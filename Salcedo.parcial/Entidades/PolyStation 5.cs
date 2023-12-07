@@ -1,41 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Entidades
 {
-    public class PolyStation_5 : Consola
+    public class PolyStation_5 : Consola ,IConsola
     {
-
-        private int cantidadNucleosProcesador;
-        private ETiposPolyStation tipo;
-
-        public PolyStation_5(string numeroDeSerie ,decimal precio, float almacenamientoInterno, int cantidadJugadores, string conectividadInternet, int cantidadNucleosProcesador,ETiposPolyStation tipo) : base(numeroDeSerie ,precio, almacenamientoInterno, cantidadJugadores, conectividadInternet)
+        public PolyStation_5()
         {
-            this.FechaLanzamiento = DateTime.Today;
-            this.cantidadNucleosProcesador = cantidadNucleosProcesador;
-            this.tipo = tipo;
+                
+        }
+
+        public PolyStation_5(int id, DateTime fechaProduccion, decimal precio,int almacenamiento, int cantidadJugadores, bool wifi, string nombre) : base(id, fechaProduccion, precio, almacenamiento, cantidadJugadores, wifi, nombre)
+        {
+           
         }
 
 
-        public int CantidadNucleosProcesador { get { return cantidadNucleosProcesador;} set { cantidadNucleosProcesador = value; } }
 
-        public ETiposPolyStation Tipo { get { return tipo; } }
 
         /// <summary>
-        /// Metodo sobreescrito de la clase base, muestra los datos de la clase base mas su atributo propio.
+        /// Metodo de la interfaz, calcula el precio de la consola segun el almacenamiento de la misma.
         /// </summary>
-        /// <returns></returns>
-        public override string MostrarConsola()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("***PolyStation 5®***");
-            sb.Append(base.MostrarConsola());
-            sb.AppendLine($"Cantidad de nucleos: {CantidadNucleosProcesador}");
-            sb.AppendLine($"Tipo de PolyStation: {Tipo}");
-            return sb.ToString();
+        public void CalcularPrecio()
+        {           
+            if (almacenamiento == 64)
+            {
+                Precio = 80000;
+            }
+            else if (almacenamiento == 128)
+            {
+                Precio = 85000;
+            }
+            else if (almacenamiento == 256)
+            {
+                Precio = 90000;
+            }        
         }
+
+        public override string ToString()
+        {
+            return base.ToString(); 
+        }
+
+
     }
 }

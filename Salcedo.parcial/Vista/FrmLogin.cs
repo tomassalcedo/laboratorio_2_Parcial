@@ -11,27 +11,28 @@ using System.Windows.Forms;
 
 namespace Vista
 {
-    public partial class FrmLogin : Form
+    public partial class FrmLogin : Form, IConfiguraciones
     {
         Usuario user;
 
         public FrmLogin()
         {
-            // Datos.HardCodearUsuarios();
+
             InitializeComponent();
         }
 
 
         private void FrmLogin_Load(object sender, EventArgs e)
         {
-            this.Text = "Login -Salcedo Play-";
-            this.txtBoxPassword.UseSystemPasswordChar = true;
+           
+            AplicarConfiguraciones();
+
         }
 
 
         private void btnRellenar_Click(object sender, EventArgs e)
         {
-            this.txtBoxUsuario.Text = "devthomas12";
+            this.txtBoxUsuario.Text = "TomasDev";
             this.txtBoxPassword.Text = "sistemas123";
 
         }
@@ -57,7 +58,8 @@ namespace Vista
         {
             string nombreUsuario = txtBoxUsuario.Text;
             string password = txtBoxPassword.Text;
-            user = Datos.VerificarPassword(Datos.usuariosEnSistema, password, nombreUsuario);
+         
+            user = LogicaNegocio.BuscarUsuario(nombreUsuario, password);
 
             if (user is not null)
             {
@@ -78,8 +80,27 @@ namespace Vista
 
         private void btnRellenarOperario_Click(object sender, EventArgs e)
         {
-            this.txtBoxUsuario.Text = "JuanCarlos";
+            this.txtBoxUsuario.Text = "juanCarlos";
             this.txtBoxPassword.Text = "10peso";
         }
+
+
+
+        public void AplicarConfiguraciones()
+        {
+            Configuracion config = Archivos<Configuracion>.LeerConfiguracion("configuracion");
+            FontFamily fontFamily = new FontFamily(config.Fuente);
+            Font font = new Font(fontFamily, this.Font.Size, FontStyle.Regular);
+            this.Font = font;
+            this.BackColor = config.ColorFondo;
+
+            this.Text = "Login -Salcedo Play-";
+            this.txtBoxPassword.UseSystemPasswordChar = true;
+        }
+
+
+
+
+
     }
 }

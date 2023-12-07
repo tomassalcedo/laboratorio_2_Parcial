@@ -31,8 +31,6 @@
             cmbConsolas = new ComboBox();
             pbConsola = new PictureBox();
             label1 = new Label();
-            lblCantJuegosArcadium = new Label();
-            cbCantJuegosArcadium = new ComboBox();
             pbProduccion = new PictureBox();
             btnProducirMueble = new Button();
             btnColocarPlasticos = new Button();
@@ -42,25 +40,26 @@
             lblPlacaWifi = new Label();
             cmbPlacaWifi = new ComboBox();
             rtbInfoConsola = new RichTextBox();
-            txtBoxPrecio = new TextBox();
+            txtPrecio = new TextBox();
             lblPrecio = new Label();
             lblConsolaTerminada = new Label();
-            cbTipoPoly = new ComboBox();
-            lblTipoPoly = new Label();
-            numCantidadNucleos = new NumericUpDown();
-            lblCantidadNucleos = new Label();
             btnArmarPlaca = new Button();
             cbAlmacenamiento = new ComboBox();
             lblAlmacenamiento = new Label();
             btnEnsamblarPoly = new Button();
             btnFinalizarPoly = new Button();
-            cbTipoJuegosfera = new ComboBox();
             btnEnsamblarEsfera = new Button();
             btnColocarCircuitos = new Button();
             btnFinalizarJuegosfera = new Button();
+            label2 = new Label();
+            nudJugadores = new NumericUpDown();
+            lblNombre = new Label();
+            txtNombre = new TextBox();
+            btnGuardarDatos = new Button();
+            lblUsuario = new Label();
             ((System.ComponentModel.ISupportInitialize)pbConsola).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbProduccion).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numCantidadNucleos).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudJugadores).BeginInit();
             SuspendLayout();
             // 
             // cmbConsolas
@@ -89,23 +88,6 @@
             label1.Size = new Size(107, 15);
             label1.TabIndex = 2;
             label1.Text = "Seleccione consola";
-            // 
-            // lblCantJuegosArcadium
-            // 
-            lblCantJuegosArcadium.AutoSize = true;
-            lblCantJuegosArcadium.Location = new Point(12, 330);
-            lblCantJuegosArcadium.Name = "lblCantJuegosArcadium";
-            lblCantJuegosArcadium.Size = new Size(127, 15);
-            lblCantJuegosArcadium.TabIndex = 3;
-            lblCantJuegosArcadium.Text = "Seleccione cant juegos";
-            // 
-            // cbCantJuegosArcadium
-            // 
-            cbCantJuegosArcadium.FormattingEnabled = true;
-            cbCantJuegosArcadium.Location = new Point(12, 348);
-            cbCantJuegosArcadium.Name = "cbCantJuegosArcadium";
-            cbCantJuegosArcadium.Size = new Size(121, 23);
-            cbCantJuegosArcadium.TabIndex = 7;
             // 
             // pbProduccion
             // 
@@ -192,21 +174,21 @@
             rtbInfoConsola.TabIndex = 17;
             rtbInfoConsola.Text = "";
             // 
-            // txtBoxPrecio
+            // txtPrecio
             // 
-            txtBoxPrecio.Location = new Point(12, 471);
-            txtBoxPrecio.Name = "txtBoxPrecio";
-            txtBoxPrecio.Size = new Size(121, 23);
-            txtBoxPrecio.TabIndex = 18;
+            txtPrecio.Location = new Point(12, 471);
+            txtPrecio.Name = "txtPrecio";
+            txtPrecio.Size = new Size(121, 23);
+            txtPrecio.TabIndex = 18;
             // 
             // lblPrecio
             // 
             lblPrecio.AutoSize = true;
             lblPrecio.Location = new Point(12, 453);
             lblPrecio.Name = "lblPrecio";
-            lblPrecio.Size = new Size(81, 15);
+            lblPrecio.Size = new Size(40, 15);
             lblPrecio.TabIndex = 19;
-            lblPrecio.Text = "Ingrese precio";
+            lblPrecio.Text = "Precio";
             // 
             // lblConsolaTerminada
             // 
@@ -218,39 +200,6 @@
             lblConsolaTerminada.Size = new Size(205, 17);
             lblConsolaTerminada.TabIndex = 20;
             lblConsolaTerminada.Text = "Consola terminada";
-            // 
-            // cbTipoPoly
-            // 
-            cbTipoPoly.FormattingEnabled = true;
-            cbTipoPoly.Location = new Point(169, 348);
-            cbTipoPoly.Name = "cbTipoPoly";
-            cbTipoPoly.Size = new Size(121, 23);
-            cbTipoPoly.TabIndex = 21;
-            // 
-            // lblTipoPoly
-            // 
-            lblTipoPoly.AutoSize = true;
-            lblTipoPoly.Location = new Point(173, 330);
-            lblTipoPoly.Name = "lblTipoPoly";
-            lblTipoPoly.Size = new Size(87, 15);
-            lblTipoPoly.TabIndex = 22;
-            lblTipoPoly.Text = "Seleccione tipo";
-            // 
-            // numCantidadNucleos
-            // 
-            numCantidadNucleos.Location = new Point(170, 411);
-            numCantidadNucleos.Name = "numCantidadNucleos";
-            numCantidadNucleos.Size = new Size(120, 23);
-            numCantidadNucleos.TabIndex = 23;
-            // 
-            // lblCantidadNucleos
-            // 
-            lblCantidadNucleos.AutoSize = true;
-            lblCantidadNucleos.Location = new Point(169, 392);
-            lblCantidadNucleos.Name = "lblCantidadNucleos";
-            lblCantidadNucleos.Size = new Size(138, 15);
-            lblCantidadNucleos.TabIndex = 24;
-            lblCantidadNucleos.Text = "Cant nucleos procesador";
             // 
             // btnArmarPlaca
             // 
@@ -299,14 +248,6 @@
             btnFinalizarPoly.UseVisualStyleBackColor = true;
             btnFinalizarPoly.Click += btnFinalizarPoly_Click;
             // 
-            // cbTipoJuegosfera
-            // 
-            cbTipoJuegosfera.FormattingEnabled = true;
-            cbTipoJuegosfera.Location = new Point(170, 348);
-            cbTipoJuegosfera.Name = "cbTipoJuegosfera";
-            cbTipoJuegosfera.Size = new Size(121, 23);
-            cbTipoJuegosfera.TabIndex = 30;
-            // 
             // btnEnsamblarEsfera
             // 
             btnEnsamblarEsfera.Location = new Point(381, 47);
@@ -337,28 +278,80 @@
             btnFinalizarJuegosfera.UseVisualStyleBackColor = true;
             btnFinalizarJuegosfera.Click += btnFinalizarJuegosfera_Click;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(220, 330);
+            label2.Name = "label2";
+            label2.Size = new Size(149, 15);
+            label2.TabIndex = 34;
+            label2.Text = "Ingrese cantidad jugadores";
+            // 
+            // nudJugadores
+            // 
+            nudJugadores.Location = new Point(221, 348);
+            nudJugadores.Name = "nudJugadores";
+            nudJugadores.Size = new Size(120, 23);
+            nudJugadores.TabIndex = 35;
+            // 
+            // lblNombre
+            // 
+            lblNombre.AutoSize = true;
+            lblNombre.Location = new Point(231, 392);
+            lblNombre.Name = "lblNombre";
+            lblNombre.Size = new Size(51, 15);
+            lblNombre.TabIndex = 36;
+            lblNombre.Text = "Nombre";
+            // 
+            // txtNombre
+            // 
+            txtNombre.Location = new Point(220, 410);
+            txtNombre.Name = "txtNombre";
+            txtNombre.Size = new Size(121, 23);
+            txtNombre.TabIndex = 37;
+            // 
+            // btnGuardarDatos
+            // 
+            btnGuardarDatos.Location = new Point(220, 446);
+            btnGuardarDatos.Name = "btnGuardarDatos";
+            btnGuardarDatos.Size = new Size(121, 48);
+            btnGuardarDatos.TabIndex = 38;
+            btnGuardarDatos.Text = "Guardar datos";
+            btnGuardarDatos.UseVisualStyleBackColor = true;
+            btnGuardarDatos.Click += btnGuardarDatos_Click;
+            // 
+            // lblUsuario
+            // 
+            lblUsuario.AutoSize = true;
+            lblUsuario.Location = new Point(881, 495);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(38, 15);
+            lblUsuario.TabIndex = 39;
+            lblUsuario.Text = "label3";
+            // 
             // FrmProduccion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 128, 0);
             ClientSize = new Size(1067, 560);
+            Controls.Add(lblUsuario);
+            Controls.Add(btnGuardarDatos);
+            Controls.Add(txtNombre);
+            Controls.Add(lblNombre);
+            Controls.Add(nudJugadores);
+            Controls.Add(label2);
             Controls.Add(btnFinalizarJuegosfera);
             Controls.Add(btnColocarCircuitos);
             Controls.Add(btnEnsamblarEsfera);
-            Controls.Add(cbTipoJuegosfera);
             Controls.Add(btnFinalizarPoly);
             Controls.Add(btnEnsamblarPoly);
             Controls.Add(lblAlmacenamiento);
             Controls.Add(cbAlmacenamiento);
             Controls.Add(btnArmarPlaca);
-            Controls.Add(lblCantidadNucleos);
-            Controls.Add(numCantidadNucleos);
-            Controls.Add(lblTipoPoly);
-            Controls.Add(cbTipoPoly);
             Controls.Add(lblConsolaTerminada);
             Controls.Add(lblPrecio);
-            Controls.Add(txtBoxPrecio);
+            Controls.Add(txtPrecio);
             Controls.Add(rtbInfoConsola);
             Controls.Add(cmbPlacaWifi);
             Controls.Add(lblPlacaWifi);
@@ -368,8 +361,6 @@
             Controls.Add(btnColocarPlasticos);
             Controls.Add(btnProducirMueble);
             Controls.Add(pbProduccion);
-            Controls.Add(cbCantJuegosArcadium);
-            Controls.Add(lblCantJuegosArcadium);
             Controls.Add(label1);
             Controls.Add(pbConsola);
             Controls.Add(cmbConsolas);
@@ -381,7 +372,7 @@
             Load += FrnProduccion_Load;
             ((System.ComponentModel.ISupportInitialize)pbConsola).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbProduccion).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numCantidadNucleos).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudJugadores).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -391,7 +382,6 @@
         private ComboBox cmbConsolas;
         private PictureBox pbConsola;
         private Label label1;
-        private Label lblCantJuegosArcadium;
         private ComboBox cbCantJuegosArcadium;
         private PictureBox pbProduccion;
         private Button btnProducirMueble;
@@ -402,21 +392,22 @@
         private Label lblPlacaWifi;
         private ComboBox cmbPlacaWifi;
         private RichTextBox rtbInfoConsola;
-        private TextBox txtBoxPrecio;
+        private TextBox txtPrecio;
         private Label lblPrecio;
         private Label lblConsolaTerminada;
-        private ComboBox cbTipoPoly;
-        private Label lblTipoPoly;
-        private NumericUpDown numCantidadNucleos;
-        private Label lblCantidadNucleos;
         private Button btnArmarPlaca;
         private ComboBox cbAlmacenamiento;
         private Label lblAlmacenamiento;
         private Button btnEnsamblarPoly;
         private Button btnFinalizarPoly;
-        private ComboBox cbTipoJuegosfera;
         private Button btnEnsamblarEsfera;
         private Button btnColocarCircuitos;
         private Button btnFinalizarJuegosfera;
+        private Label label2;
+        private NumericUpDown nudJugadores;
+        private Label lblNombre;
+        private TextBox txtNombre;
+        private Button btnGuardarDatos;
+        private Label lblUsuario;
     }
 }

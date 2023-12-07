@@ -6,16 +6,8 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    public enum ETiposPolyStation
+    public interface IConfiguraciones
     {
-        Digital,
-        LectoraCD
+        public void AplicarConfiguraciones();
     }
-
-    public enum ETiposJuegosfera
-    {
-        HDMI,
-        RCA
-    }
- 
 }

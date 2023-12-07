@@ -5,66 +5,31 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Vista
 {
-    public partial class FrmProduccion : Form
+    public partial class FrmProduccion : Form, IConfiguraciones
     {
-        public FrmProduccion()
+
+        private SuperArcadium2000 arcadium;
+        private PolyStation_5 poly;
+        private Juegosfera juegosfera;
+        private Usuario usuario;
+
+        public FrmProduccion(Usuario usuario)
         {
             InitializeComponent();
+            this.usuario = usuario;
         }
 
         private void FrnProduccion_Load(object sender, EventArgs e)
         {
-            cmbConsolas.Items.Add("Juegosfera");
-            cmbConsolas.Items.Add("SuperArcadium2000");
-            cmbConsolas.Items.Add("PolyStation5");
+            AplicarConfiguraciones();
 
-            cbAlmacenamiento.Items.Add(250);
-            cbAlmacenamiento.Items.Add(500);
-            cbAlmacenamiento.Items.Add(1000);
-            cbTipoJuegosfera.Items.Add(ETiposJuegosfera.HDMI);
-            cbTipoJuegosfera.Items.Add(ETiposJuegosfera.RCA);
-            numCantidadNucleos.Minimum = 4;
-            numCantidadNucleos.Maximum = 16;
-            cbTipoJuegosfera.Visible = false;
-            cmbPlacaWifi.Items.Add("Si");
-            cmbPlacaWifi.Items.Add("No");
-            pbConsola.Image = Properties.Resources.LogoEmpresa;
-
-
-            cbCantJuegosArcadium.Items.Add(500);
-            cbCantJuegosArcadium.Items.Add(1000);
-            cbCantJuegosArcadium.Visible = false;
-            btnFinalizarJuegosfera.Visible = false;
-            lblCantJuegosArcadium.Visible = false;
-            lblPlacaWifi.Visible = false;
-            lblCantidadNucleos.Visible = false;
-            lblTipoPoly.Visible = false;
-            btnProducirMueble.Visible = false;
-            btnColocarCircuitos.Visible = false;
-            btnColocarPlasticos.Visible = false;
-            btnColocarCableado.Visible = false;
-            btnFinalizarPoly.Visible = false;
-            btnEnviarABodega.Visible = false;
-            cmbPlacaWifi.Visible = false;
-            lblConsolaTerminada.Visible = false;
-            numCantidadNucleos.Visible = false;
-            cbTipoPoly.Visible = false;
-            btnEnsamblarEsfera.Visible = false;
-            pbProduccion.Visible = false;
-            rtbInfoConsola.Visible = false;
-            btnEnsamblarPoly.Visible = false;
-            btnArmarPlaca.Visible = false;
-            cbAlmacenamiento.Visible = false;
-            lblAlmacenamiento.Visible = false;
-
-            cbTipoPoly.Items.Add(ETiposPolyStation.Digital);
-            cbTipoPoly.Items.Add(ETiposPolyStation.LectoraCD);
         }
 
         private void cmbConsolas_SelectedIndexChanged(object sender, EventArgs e)
@@ -74,142 +39,83 @@ namespace Vista
             if (consola == "SuperArcadium2000")
             {
                 pbConsola.Image = Properties.Resources.SuperArcadiumV2;
-                cbCantJuegosArcadium.Visible = true;
-                lblCantJuegosArcadium.Visible = true;
-                lblPlacaWifi.Visible = true;
+                txtNombre.Text = "SuperArcadium2000";
+
                 btnEnsamblarPoly.Visible = false;
                 btnEnsamblarEsfera.Visible = false;
-                numCantidadNucleos.Visible = false;
-                lblCantidadNucleos.Visible = false;
-                cbTipoJuegosfera.Visible = false;
-                lblTipoPoly.Visible = false;
-                cbTipoPoly.Visible = false;
-                cmbPlacaWifi.Visible = true;
                 btnFinalizarPoly.Visible = false;
-                btnProducirMueble.Visible = true;
-                lblAlmacenamiento.Visible = false;
                 btnArmarPlaca.Visible = false;
-                cbAlmacenamiento.Visible = false;
-
             }
             else if (consola == "Juegosfera")
             {
-                cbCantJuegosArcadium.Visible = false;
-                lblCantJuegosArcadium.Visible = false;
                 btnProducirMueble.Visible = false;
-                lblPlacaWifi.Visible = true;
-                lblTipoPoly.Visible = true;
                 btnFinalizarPoly.Visible = false;
                 btnEnsamblarPoly.Visible = false;
-                cbTipoJuegosfera.Visible = true;
-                lblCantidadNucleos.Visible = true;
-                btnEnsamblarEsfera.Visible = true;
-                numCantidadNucleos.Visible = true;
-                cbTipoPoly.Visible = true;
-                lblAlmacenamiento.Visible = true;
-                cmbPlacaWifi.Visible = true;
-                numCantidadNucleos.Visible = false;
-                lblCantidadNucleos.Visible = false;
-                lblTipoPoly.Visible = true;
-                cbTipoPoly.Visible = false;
+                txtNombre.Text = "Juegosfera";
                 btnArmarPlaca.Visible = false;
-                cbAlmacenamiento.Visible = true;
                 pbConsola.Image = Properties.Resources.Juegosfera;
             }
             else if (consola == "PolyStation5")
             {
-                numCantidadNucleos.Visible = true;
-                lblTipoPoly.Visible = true;
-                cbTipoPoly.Visible = true;
+                txtNombre.Text = "Polystation5";
                 btnEnsamblarEsfera.Visible = false;
-                cbCantJuegosArcadium.Visible = false;
-                lblCantJuegosArcadium.Visible = false;
                 btnProducirMueble.Visible = false;
-                cbTipoJuegosfera.Visible = false;
-                lblAlmacenamiento.Visible = true;
-                lblPlacaWifi.Visible = true;
-                cbAlmacenamiento.Visible = true;
-                cmbPlacaWifi.Visible = true;
-                btnArmarPlaca.Visible = true;
-                lblCantidadNucleos.Visible = true;
                 pbConsola.Image = Properties.Resources.PolyStatation;
             }
         }
 
         private void btnProducirMueble_Click(object sender, EventArgs e)
         {
-            if (Datos.CantidadTornillosDisponibles > 50)
+            try
             {
-
-                if (!Decimal.TryParse(txtBoxPrecio.Text, out _))
-                {
-                    MessageBox.Show("Precio invalido.");
-                    txtBoxPrecio.Focus();
-                }
+                Stock.DescontarTornillos(50);
                 pbProduccion.Visible = true;
                 pbProduccion.Image = Properties.Resources.mueble;
                 btnColocarPlasticos.Visible = true;
-                Datos.DescontarTornillos(50);
+                btnProducirMueble.Visible = false;
             }
-            else
+            catch (MiExcepcion ex)
             {
-                MessageBox.Show("Sin tornillos para el mueble,hable con un supervisor");
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void btnColocarPlasticos_Click(object sender, EventArgs e)
         {
-            if (Datos.CantidadPlasticoDisponible > 100)
+            try
             {
+                Stock.DescontarPlastico(40);
                 pbProduccion.Image = Properties.Resources.SuperArcadium;
                 btnColocarCableado.Visible = true;
                 btnProducirMueble.Visible = false;
-                Datos.DescontarPlastico(100);
+                btnColocarPlasticos.Visible = false;
+
             }
-            else
+            catch (StockInsuficienteExeption ex)
             {
-                MessageBox.Show("Sin plastico para la consola,hable con un supervisor");
+                MessageBox.Show(ex.Message);
             }
 
         }
 
         private void btnColocarCableado_Click(object sender, EventArgs e)
         {
-            if (Datos.MetrosDeCableDisponible > 500)
+            try
             {
+                Stock.DescontarCable(50);
                 btnColocarPlasticos.Visible = false;
-                MessageBox.Show("Colocando cables...Espere confirmacion");
-                Thread.Sleep(1000);
                 MessageBox.Show("Cables colados correctamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnColocarCableado.Visible = false;
-
-
-                decimal precio;
-                if (!Decimal.TryParse(txtBoxPrecio.Text, out precio))
-                {
-                    MessageBox.Show("Precio invalido.");
-                    txtBoxPrecio.Focus();
-
-                }
-                float almacenamiento = 20;
-                int cantidadJugadores = 2;
-                string numeroDeSerie = Consola.GenerarNumeroDeSerieUnico();
-                string conectividadInternet = cmbPlacaWifi.SelectedItem.ToString();
-                int cantidadJuegos = (int)cbCantJuegosArcadium.SelectedItem;
-                SuperArcadium2000 arcadium = new SuperArcadium2000(numeroDeSerie, precio, almacenamiento, cantidadJugadores, conectividadInternet, cantidadJuegos);
-                Datos.DescontarCable(50);
-
-
                 rtbInfoConsola.Visible = true;
-                rtbInfoConsola.Text = arcadium.MostrarConsola();
+                rtbInfoConsola.Text = arcadium.ToString();
                 lblConsolaTerminada.Visible = true;
                 btnCancelar.Enabled = false;
                 btnEnviarABodega.Visible = true;
-                Datos.EnviarConsolaABodega(arcadium);
+                ConsolaDao.Guardar(arcadium);
             }
-            else
+            catch (StockInsuficienteExeption ex)
             {
-                MessageBox.Show("No hay cable disponible,hable con un supervisor");
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -225,137 +131,209 @@ namespace Vista
 
         private void btnArmarPlaca_Click(object sender, EventArgs e)
         {
-            if (Datos.CantidadDePlacasDisponibles > 1)
+            try
             {
-                if (!Decimal.TryParse(txtBoxPrecio.Text, out _))
-                {
-                    MessageBox.Show("Precio invalido.");
-                    txtBoxPrecio.Focus();
-                }
+                Stock.DescontarPlacas(1);
                 pbProduccion.Visible = true;
                 pbProduccion.Image = Properties.Resources.placaPoly;
                 btnEnsamblarPoly.Visible = true;
-                Datos.DescontarPlacas(1);
+                btnArmarPlaca.Visible = false;
             }
-            else
+            catch (StockInsuficienteExeption ex)
             {
-                MessageBox.Show("No hay placas disponibles,hable con un supervisor");
+                MessageBox.Show(ex.Message);
             }
-
         }
 
         private void btnEnsamblarPoly_Click(object sender, EventArgs e)
         {
-            if (Datos.CantidadPlasticoDisponible > 100)
+            try
             {
+                Stock.DescontarPlastico(30);
                 pbProduccion.Image = Properties.Resources.ensamblePoly;
-                btnArmarPlaca.Visible = false;
                 btnFinalizarPoly.Visible = true;
-                Datos.DescontarPlastico(100);
+                btnEnsamblarPoly.Visible = false;
             }
-            else
+            catch (StockInsuficienteExeption ex)
             {
-                MessageBox.Show("Sin plastico para la consola,hable con un supervisor");
+                MessageBox.Show(ex.Message);
             }
-
         }
 
         private void btnFinalizarPoly_Click(object sender, EventArgs e)
         {
 
-            if (Datos.MetrosDeCableDisponible > 70)
+            try
             {
-                btnEnsamblarPoly.Visible = false;
+                Stock.DescontarCable(70);
                 MessageBox.Show("PolyStation finalizada");
                 btnFinalizarPoly.Visible = false;
-                string numeroDeSerie = Consola.GenerarNumeroDeSerieUnico();
-                decimal precio;
-                if (!Decimal.TryParse(txtBoxPrecio.Text, out precio))
-                {
-                    MessageBox.Show("El precio ingresado no es valido");
-                }
-                //= Convert.ToDecimal(txtBoxPrecio.Text);
-                float almacenamiento = Convert.ToSingle(cbAlmacenamiento.SelectedItem);
-                string conectividad = cmbPlacaWifi.SelectedItem.ToString();
-                int cantNucleosProcesador = (int)numCantidadNucleos.Value;
-                ETiposPolyStation tipo = (ETiposPolyStation)cbTipoPoly.SelectedItem;
-                PolyStation_5 polyStation = new PolyStation_5(numeroDeSerie, precio, almacenamiento, 4, conectividad, cantNucleosProcesador, tipo);
                 rtbInfoConsola.Visible = true;
-                rtbInfoConsola.Text = polyStation.MostrarConsola();
+                rtbInfoConsola.Text = poly.ToString();
                 lblConsolaTerminada.Visible = true;
                 btnCancelar.Enabled = false;
                 btnEnviarABodega.Visible = true;
-                Datos.EnviarConsolaABodega(polyStation);
-                Datos.DescontarCable(70);
+                ConsolaDao.Guardar(poly);
+
             }
-            else
+            catch (StockInsuficienteExeption ex)
             {
-                MessageBox.Show("No hay cable disponible,hable con un supervisor");
+                MessageBox.Show(ex.Message);
             }
+
+
+
+
+
         }
 
         private void btnEnsamblarEsfera_Click(object sender, EventArgs e)
         {
-            if (Datos.CantidadPlasticoDisponible > 100)
+            try
             {
-                if (!Decimal.TryParse(txtBoxPrecio.Text, out _))
-                {
-                    MessageBox.Show("Precio invalido.");
-                    txtBoxPrecio.Focus();
-                }
+                Stock.DescontarPlastico(40);
                 pbProduccion.Visible = true;
                 pbProduccion.Image = Properties.Resources.esfera;
                 btnColocarCircuitos.Visible = true;
-                Datos.DescontarPlastico(100);
-            }
-            else
-            {
-                MessageBox.Show("No hay materiales disponibles,hable con un supervisor");
-            }
 
+                btnEnsamblarEsfera.Visible = false;
+            }
+            catch (MiExcepcion ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void btnColocarCircuitos_Click(object sender, EventArgs e)
         {
-            if (Datos.MetrosDeCableDisponible > 80)
+            try
             {
+                Stock.DescontarCable(5);
                 pbProduccion.Image = Properties.Resources.juegosfera1;
-                btnEnsamblarEsfera.Visible = false;
+                btnColocarCircuitos.Visible = false;
                 btnFinalizarJuegosfera.Visible = true;
             }
-            else
+            catch (MiExcepcion ex)
             {
-                MessageBox.Show("No hay cable disponible,hable con un supervisor");
+                MessageBox.Show(ex.Message);
             }
-
         }
 
         private void btnFinalizarJuegosfera_Click(object sender, EventArgs e)
         {
-            if (Datos.CantidadDePlacasDisponibles > 1)
+            try
             {
-                btnColocarCircuitos.Visible = false;
+                Stock.DescontarPlacas(1);
                 MessageBox.Show("Juegosfera finalizada");
                 btnFinalizarJuegosfera.Visible = false;
-                string numeroDeSerie = Consola.GenerarNumeroDeSerieUnico();
-                decimal precio = Convert.ToDecimal(txtBoxPrecio.Text);
-                float almacenamiento = Convert.ToSingle(cbAlmacenamiento.SelectedItem);
-                string conectividad = cmbPlacaWifi.SelectedItem.ToString();
-                ETiposJuegosfera tipo = (ETiposJuegosfera)cbTipoJuegosfera.SelectedItem;
-                Juegosfera juegosfera = new Juegosfera(numeroDeSerie, precio, almacenamiento, 2, conectividad, tipo);
                 rtbInfoConsola.Visible = true;
-                rtbInfoConsola.Text = juegosfera.MostrarConsola();
+                rtbInfoConsola.Text = juegosfera.ToString();
                 lblConsolaTerminada.Visible = true;
                 btnCancelar.Enabled = false;
                 btnEnviarABodega.Visible = true;
-                Datos.DescontarPlacas(1);
-                Datos.EnviarConsolaABodega(juegosfera);
-            }
-            else
-            {
-                MessageBox.Show("Sin materiales para finalizar consola,hable con un supervisor");
-            }
 
+                ConsolaDao.Guardar(juegosfera);
+            }
+            catch (MiExcepcion ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+        private void btnGuardarDatos_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int almacenamiento = Convert.ToInt32(cbAlmacenamiento.SelectedItem);
+                DateTime fechaProduccion = DateTime.Now;
+                int cantidadJugadores = (int)nudJugadores.Value;
+                string nombre = txtNombre.Text;
+                bool wifi = false;
+
+                if (cmbPlacaWifi.SelectedItem == "Si")
+                {
+                    wifi = true;
+                }
+
+                if (almacenamiento != 0 && cantidadJugadores != 0)
+                {
+                    if (cmbConsolas.SelectedItem == "SuperArcadium2000")
+                    {
+                        cmbConsolas.Enabled = false;
+                        btnProducirMueble.Visible = true;
+                        btnGuardarDatos.Enabled = false;
+                        arcadium = new SuperArcadium2000(0, fechaProduccion, 0, almacenamiento, cantidadJugadores, wifi, nombre);
+                        arcadium.CalcularPrecio();
+                        txtPrecio.Text = arcadium.Precio.ToString();
+
+                    }
+                    else if (cmbConsolas.SelectedItem == "PolyStation5")
+                    {
+                        cmbConsolas.Enabled = false;
+                        btnArmarPlaca.Visible = true;
+                        btnGuardarDatos.Enabled = false;
+                        poly = new PolyStation_5(0, fechaProduccion, 0, almacenamiento, cantidadJugadores, wifi, nombre);
+                        poly.CalcularPrecio();
+                        txtPrecio.Text = poly.Precio.ToString();
+                    }
+                    else if (cmbConsolas.SelectedItem == "Juegosfera")
+                    {
+                        cmbConsolas.Enabled = false;
+                        btnEnsamblarEsfera.Visible = true;
+                        btnGuardarDatos.Enabled = false;
+                        juegosfera = new Juegosfera(0, fechaProduccion, 0, almacenamiento, cantidadJugadores, wifi, nombre);
+                        juegosfera.CalcularPrecio();
+                        txtPrecio.Text = juegosfera.Precio.ToString();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Por favor llene todos los campos");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+        public void AplicarConfiguraciones()
+        {
+            Configuracion config = Archivos<Configuracion>.LeerConfiguracion("configuracion");
+            FontFamily fontFamily = new FontFamily(config.Fuente);
+            Font font = new Font(fontFamily, this.Font.Size, FontStyle.Regular);
+            this.Font = font;
+            this.BackColor = config.ColorFondo;
+
+            cmbConsolas.Items.Add("Juegosfera");
+            cmbConsolas.Items.Add("SuperArcadium2000");
+            cmbConsolas.Items.Add("PolyStation5");
+            cbAlmacenamiento.Items.Add(64);
+            cbAlmacenamiento.Items.Add(128);
+            cbAlmacenamiento.Items.Add(256);
+            txtNombre.Enabled = false;
+            txtPrecio.Enabled = false;
+            cmbPlacaWifi.Items.Add("Si");
+            cmbPlacaWifi.Items.Add("No");
+            pbConsola.Image = Properties.Resources.LogoEmpresa;
+            btnFinalizarJuegosfera.Visible = false;
+            btnProducirMueble.Visible = false;
+            btnColocarCircuitos.Visible = false;
+            btnColocarPlasticos.Visible = false;
+            btnColocarCableado.Visible = false;
+            btnFinalizarPoly.Visible = false;
+            btnEnviarABodega.Visible = false;
+            lblConsolaTerminada.Visible = false;
+            lblUsuario.Text = LogicaNegocio.ConsuntarCategoria(usuario);
+            btnEnsamblarEsfera.Visible = false;
+            pbProduccion.Visible = false;
+            rtbInfoConsola.Visible = false;
+            btnEnsamblarPoly.Visible = false;
+            btnArmarPlaca.Visible = false;
         }
 
 

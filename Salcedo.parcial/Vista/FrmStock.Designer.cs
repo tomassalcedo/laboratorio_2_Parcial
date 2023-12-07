@@ -35,6 +35,7 @@
             Column4 = new DataGridViewTextBoxColumn();
             btnAgregarMateriales = new Button();
             btnVolver = new Button();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvStockMateriales).BeginInit();
             SuspendLayout();
             // 
@@ -46,7 +47,7 @@
             dgvStockMateriales.Location = new Point(12, 83);
             dgvStockMateriales.Name = "dgvStockMateriales";
             dgvStockMateriales.RowTemplate.Height = 25;
-            dgvStockMateriales.Size = new Size(776, 150);
+            dgvStockMateriales.Size = new Size(776, 48);
             dgvStockMateriales.TabIndex = 0;
             // 
             // Column1
@@ -72,7 +73,7 @@
             // 
             // btnAgregarMateriales
             // 
-            btnAgregarMateriales.Location = new Point(12, 271);
+            btnAgregarMateriales.Location = new Point(51, 179);
             btnAgregarMateriales.Name = "btnAgregarMateriales";
             btnAgregarMateriales.Size = new Size(98, 43);
             btnAgregarMateriales.TabIndex = 1;
@@ -82,7 +83,7 @@
             // 
             // btnVolver
             // 
-            btnVolver.Location = new Point(146, 271);
+            btnVolver.Location = new Point(224, 179);
             btnVolver.Name = "btnVolver";
             btnVolver.Size = new Size(98, 43);
             btnVolver.TabIndex = 2;
@@ -90,12 +91,23 @@
             btnVolver.UseVisualStyleBackColor = true;
             btnVolver.Click += btnVolver_Click;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(330, 27);
+            label1.Name = "label1";
+            label1.Size = new Size(159, 21);
+            label1.TabIndex = 3;
+            label1.Text = "Stock de materiales";
+            // 
             // FrmStock
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 128, 0);
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 265);
+            Controls.Add(label1);
             Controls.Add(btnVolver);
             Controls.Add(btnAgregarMateriales);
             Controls.Add(dgvStockMateriales);
@@ -107,6 +119,7 @@
             Load += FrmStock_Load;
             ((System.ComponentModel.ISupportInitialize)dgvStockMateriales).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -118,5 +131,6 @@
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn CantidadTornillosDisponibles;
         private DataGridViewTextBoxColumn Column4;
+        private Label label1;
     }
 }
